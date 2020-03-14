@@ -17,3 +17,4 @@ public class SessionUser implements Serializable {
         this.picture = user.getPicture();
     }
 }
+//인증 된 사용자 정보만 필요한 클래스
