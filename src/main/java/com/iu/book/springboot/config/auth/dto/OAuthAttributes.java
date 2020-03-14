@@ -14,7 +14,7 @@ public class OAuthAttributes {
     private String name;
     private String email;
     private String picture;
-//3 그래서 필요한 생성자빌더
+
     @Builder
     public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
         this.attributes = attributes;
@@ -23,27 +23,43 @@ public class OAuthAttributes {
         this.email = email;
         this.picture = picture;
     }
-//1 OAuth2User에서 반환하는 사용자 정보는 Map , >> 값을 하나하나 변환해 줘야함
-    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){
+
+    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+        if("naver".equals(registrationId)) {
+            return ofNaver("id", attributes);
+        }
+
         return ofGoogle(userNameAttributeName, attributes);
     }
-//2 그래서 ofGoogle 리턴 해서 각 필드에 넣어준다.
+
     private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
         return OAuthAttributes.builder()
-                .name((String)attributes.get("name"))
-                .email((String)attributes.get("email"))
-                .picture((String)attributes.get("picture"))
+                .name((String) attributes.get("name"))
+                .email((String) attributes.get("email"))
+                .picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
-    //처음 가입시 엔티티 생성,
-    public User toEntity(){
+
+    private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+        return OAuthAttributes.builder()
+                .name((String) response.get("name"))
+                .email((String) response.get("email"))
+                .picture((String) response.get("profile_image"))
+                .attributes(response)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    public User toEntity() {
         return User.builder()
                 .name(name)
                 .email(email)
                 .picture(picture)
-                .role(Role.GUEST) //가입시 기본권한
+                .role(Role.GUEST)
                 .build();
     }
 }

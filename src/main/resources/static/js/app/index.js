@@ -2,6 +2,7 @@ var main = {
     init : function () {
         var _this = this;
         $('#btn-save').on('click', function () {
+            console.log('111111111111')
             _this.save();
         });
 
