@@ -33,4 +33,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
     compile('org.springframework.session:spring-session-jdbc')
+    testCompile('org.springframework.security:spring-security-test') //시프링 시큐리티 테스트를 위한 빌드
+
 }

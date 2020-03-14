@@ -24,6 +24,7 @@ public class OAuthAttributes {
         this.picture = picture;
     }
 
+    //네이버 판단 코드 , 생성자 추가
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
         if("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
@@ -62,4 +63,5 @@ public class OAuthAttributes {
                 .role(Role.GUEST)
                 .build();
     }
+
 }
