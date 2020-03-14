@@ -2,14 +2,19 @@
 
 <h1>스프링부트로 시작하는 웹 서비스 Ver.2</h1>
 <div class="col-md-12">
+    <!--로그인 기능 영역 -->
     <div class="row">
         <div class="col-md-6">
             <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+            <!--유저네임이 있다면-->
             {{#userName}}
                 Logged in as: <span id="user">{{userName}}</span>
+<!--url 주소/logout 시큐리티에서 기본제공 , 별도로 컨트롤러에서 만들 필요 없음-->
                 <a href="/logout" class="btn btn-info active" role="button">Logout</a>
             {{/userName}}
+            <!--유저 네임이 없다면-->
             {{^userName}}
+<!-- 여기도 마찬가지로 /oauth2/authorization/google 시큐리티에서 기본 제공-->
                 <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
                 <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
             {{/userName}}
