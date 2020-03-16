@@ -14,10 +14,13 @@ cache:
 
 script: "./gradlew clean build"
 
+before_install:
+  - chmod +x gradlew
+
 before_deploy:
-  - zip -r woom-springboot-webservice *
+  - zip -r springboot-freetec *
   - mkdir -p deploy
-  - mv woom-springboot-webservice.zip deploy/woom-springboot-webservice.zip
+  - mv springboot-freetec.zip deploy/springboot-freetec.zip
 
 deploy:
   - provider: s3
